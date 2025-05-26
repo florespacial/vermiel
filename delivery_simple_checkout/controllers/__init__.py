@@ -1,0 +1,1 @@
+from . import delivery_simple_checkout

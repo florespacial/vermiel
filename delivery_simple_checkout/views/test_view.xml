@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <!-- Vista de prueba para la ruta /shop/test -->
+        <template id="delivery_simple_checkout.website_sale_test_view" name="Test View">
+            <div class="container py-5">
+                <h2>Vista de prueba</h2>
+                <p t-esc="message"></p>  <!-- Renderiza el mensaje recibido -->
+            </div>
+        </template>
+    </data>
+</odoo>
