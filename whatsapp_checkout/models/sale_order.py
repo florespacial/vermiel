@@ -24,8 +24,8 @@ class SaleOrder(models.Model):
             #     if desc:   
             #         message += f"   {desc}\n"   
    
-            message += f"   #️⃣ Cantidad: {line.product_uom_qty}\n"   
-            message += f"   ▶️ Precio unitario: S/ {line.price_unit:,.2f}\n"
+            message += f"#️⃣ Cantidad: {line.product_uom_qty}\n"   
+            message += f"▶️ Precio unitario: S/ {line.price_unit:,.2f}\n"
             message += f"\n"
         message += "------------------------------\n"
         message += f"💵 *TOTAL: S/ {self.amount_total:,.2f}* \n\n"   
