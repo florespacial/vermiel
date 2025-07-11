@@ -30,15 +30,24 @@ publicWidget.registry.WhatsappCartButton = publicWidget.Widget.extend({
       const response = await this.http.post("/get_whatsapp_url", {
         phone: phoneNumber,
       });
-      if (response && response.url) {
-        // Abrir WhatsApp en nueva pestaña
-        const whatsappWindow = window.open(response.url, "_blank");
 
-        // Esperar un momento para asegurar que WhatsApp se abrió correctamente
-        // y luego redirigir la página actual
+      if (response && response.url) {
+        // Crear un enlace <a> oculto y simular un clic
+        const a = document.createElement("a");
+        a.href = response.url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        a.remove(); // Limpieza
+
+        console.log("compatibilidad con iphone");
+
+        // Redirigir la página actual
         setTimeout(() => {
           window.location.href = "/shop/thanks";
-        }, 1000); // Esperar 1 segundo antes de redirigir
+        }, 1000);
       } else {
         alert("No se pudo generar el mensaje de WhatsApp.");
       }
