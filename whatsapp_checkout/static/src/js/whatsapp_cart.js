@@ -26,34 +26,32 @@ publicWidget.registry.WhatsappCartButton = publicWidget.Widget.extend({
     btn.innerHTML = '<i class="fa fa-spinner fa-spin me-1"></i> Generando...';
     const phoneNumber = 51990312326;
 
+    // Abrir ventana inmediatamente (Safari-friendly)
+    const whatsappWindow = window.open("about:blank", "_blank");
+
+    console.log("abirendo ventana de whatsapp de inmediato", whatsappWindow);
+
     try {
       const response = await this.http.post("/get_whatsapp_url", {
         phone: phoneNumber,
       });
 
       if (response && response.url) {
-        // Crear un enlace <a> oculto y simular un clic
-        const a = document.createElement("a");
-        a.href = response.url;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.style.display = "none";
-        document.body.appendChild(a);
-        a.click();
-        a.remove(); // Limpieza
+        // Redirigir la ventana abierta a la URL real
+        whatsappWindow.location.href = response.url;
 
-        console.log("compatibilidad con iphone");
-
-        // Redirigir la página actual
+        // Redirigir página actual después
         setTimeout(() => {
           window.location.href = "/shop/thanks";
         }, 1000);
       } else {
         alert("No se pudo generar el mensaje de WhatsApp.");
+        if (whatsappWindow) whatsappWindow.close();
       }
     } catch (error) {
       console.error("Error al obtener la URL de WhatsApp:", error);
       alert("Error al conectar con el servidor.");
+      if (whatsappWindow) whatsappWindow.close();
     } finally {
       btn.disabled = false;
       btn.innerHTML = originalText;
